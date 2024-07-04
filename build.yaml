@@ -1,0 +1,15 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        options:
+          addTypename: false
+          outputDirectory: __generated__
+          generatedFileHeader: "// GENERATED FILE\n// DO NOT MODIFY\n// ignore_for_file: type=lint\n"
+          scalars:
+            UUID:
+              type: String
+            DateTime:
+              type: String
+            JSON:
+              type: Map<String, dynamic>

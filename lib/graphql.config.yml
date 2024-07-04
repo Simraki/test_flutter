@@ -1,0 +1,7 @@
+schema: schema.gql
+documents: '**/*.graphql'
+extensions:
+  endpoints:
+    localhost:
+      url: http://localhost:12000/graphql
+      introspect: true

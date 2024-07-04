@@ -1,0 +1,176 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Brand {
+    id: ID!
+    name: String!
+}
+
+type Category {
+    id: ID!
+    name: String!
+    parentId: String
+}
+
+type Mutation {
+    createBrand(input: BrandCreateInput!): Brand!
+    createCategory(input: CategoryCreateInput!): Category!
+    createProduct(input: ProductCreateInput!): Product!
+    createReview(input: ReviewCreateInput!): Review!
+    createUser(input: UserCreateInput!): User!
+    login(input: UserLoginInput!): TokenWithUser!
+    refresh(refreshToken: String!): TokenWithUser!
+    register(input: UserRegisterInput!): TokenWithUser!
+    removeBrand(id: UUID!): Brand!
+    removeCategory(id: UUID!): Category!
+    removeProduct(id: UUID!): Product!
+    removeReview(id: UUID!): Review!
+    removeUser(id: UUID!): User!
+    updateBrand(input: BrandUpdateInput!): Brand!
+    updateCategory(input: CategoryUpdateInput!): Category!
+    updateProduct(input: ProductUpdateInput!): Product!
+    updateReview(input: ReviewUpdateInput!): Review!
+    updateUser(input: UserUpdateInput!): User!
+}
+
+type Product {
+    brandId: String!
+    categoryId: String!
+    id: ID!
+    name: String!
+}
+
+type Query {
+    brand(id: UUID!): Brand
+    brands: [Brand!]!
+    categories: [Category!]!
+    category(id: UUID!): Category
+    currentUser: User
+    healthcheck: Boolean!
+    product(id: UUID!): Product
+    products: [Product!]!
+    review(id: UUID!): Review
+    reviews: [Review!]!
+    user(id: UUID!): User
+    users: [User!]!
+}
+
+type Review {
+    brandId: String
+    comment: String
+    id: ID!
+    isPublic: Boolean!
+    productId: String!
+    score: Int!
+    triedAt: DateTime!
+    userId: String!
+}
+
+type TokenWithUser {
+    accessToken: String!
+    refreshToken: String!
+    user: User!
+}
+
+type User {
+    active: Boolean!
+    email: String!
+    id: ID!
+    nickname: String!
+    role: UserRole!
+}
+
+enum UserRole {
+    ADMIN
+    USER
+}
+
+"A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."
+scalar DateTime
+
+"A field whose value is a generic Universally Unique Identifier: https://en.wikipedia.org/wiki/Universally_unique_identifier."
+scalar UUID
+
+input BrandCreateInput {
+    name: String!
+}
+
+input BrandUpdateInput {
+    id: ID!
+    name: String
+}
+
+input CategoryCreateInput {
+    name: String
+    parentId: UUID
+}
+
+input CategoryUpdateInput {
+    id: ID!
+    name: String
+    parentId: UUID
+}
+
+input ProductCreateInput {
+    brandId: UUID!
+    categoryId: UUID!
+    name: String
+}
+
+input ProductUpdateInput {
+    brandId: UUID
+    categoryId: UUID
+    id: ID!
+    name: String
+}
+
+input ReviewCreateInput {
+    brandId: UUID
+    comment: String
+    isPublic: Boolean! = false
+    productId: UUID!
+    score: Int!
+    triedAt: DateTime!
+    userId: UUID!
+}
+
+input ReviewUpdateInput {
+    brandId: UUID
+    comment: String
+    id: ID!
+    isPublic: Boolean
+    productId: UUID
+    score: Int
+    triedAt: DateTime
+    userId: UUID
+}
+
+input UserCreateInput {
+    email: String!
+    nickname: String!
+    password: String!
+    role: UserRole! = USER
+}
+
+input UserLoginInput {
+    email: String!
+    password: String!
+}
+
+input UserRegisterInput {
+    email: String!
+    nickname: String!
+    password: String!
+}
+
+input UserUpdateInput {
+    email: String
+    id: ID!
+    nickname: String
+    password: String
+    role: UserRole
+}
