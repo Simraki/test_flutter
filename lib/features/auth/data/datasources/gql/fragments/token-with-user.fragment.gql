@@ -1,0 +1,10 @@
+fragment TokenWithUser on TokenWithUser {
+    accessToken
+    refreshToken
+    user {
+        id
+        nickname
+        email
+        active
+    }
+}

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tryall/core/di/di.dart';
 
 import 'app/app.dart';
 
 void main() {
-  runApp(const MyApp());
+  debugPrint('sas1');
+  configureDependencies();
+  debugPrint('sas2');
+  runApp(const App());
 }

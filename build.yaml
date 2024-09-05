@@ -5,7 +5,7 @@ targets:
         options:
           addTypename: false
           outputDirectory: __generated__
-          generatedFileHeader: "// GENERATED FILE\n// DO NOT MODIFY\n// ignore_for_file: type=lint\n"
+          generatedFileHeader: "// GENERATED FILE - DO NOT MODIFY\n// ignore_for_file: type=lint\n"
           scalars:
             UUID:
               type: String

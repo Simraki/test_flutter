@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tryall/config/theme/theme.dart';
-import 'package:tryall/routing/router.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+import '../core/routing/router.dart';
 
-  // This widget is the root of your application.
+class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

@@ -1,13 +1,27 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
+import 'package:tryall/core/error/failure.dart';
 import 'package:tryall/core/usecase/usecase.dart';
 import 'package:tryall/features/auth/domain/entities/user.dart';
+import 'package:tryall/features/auth/domain/repositories/auth_repository.dart';
 
-class LoginUserUseCase extends UseCaseNoParams<User> {
+@lazySingleton
+class LoginUserUseCase extends UseCase<User, LoginUserParams> {
+  LoginUserUseCase(this.repository);
+
+  final IAuthRepository repository;
+
   @override
-  FutureOr<User> call() {
-    debugPrint('test usecase');
-    return const User(id: '4994a5a5-2b1f-4eb7-9ea3-a9352248fe8e', nickname: 'Test nickname');
+  Future<Either<Failure, User>> call(LoginUserParams params) {
+    return repository.loginUser(email: params.email, password: params.password);
   }
+}
+
+class LoginUserParams {
+  LoginUserParams(this.email, this.password);
+
+  final String email;
+  final String password;
 }

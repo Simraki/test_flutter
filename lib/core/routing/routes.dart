@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tryall/features/auth/presentation/screens/login_screen.dart';
 
 part 'routes.g.dart';
 
@@ -7,16 +8,14 @@ part 'routes.g.dart';
 @immutable
 class LoginRoute extends GoRouteData {
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const Placeholder();
+  Widget build(BuildContext context, GoRouterState state) => const LoginScreen();
 }
 
 @TypedGoRoute<RegisterRoute>(path: '/register')
 @immutable
 class RegisterRoute extends GoRouteData {
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const Placeholder();
+  Widget build(BuildContext context, GoRouterState state) => const Placeholder();
 }
 
 // @TypedGoRoute<HomeRoute>(path: '/home', routes: [
