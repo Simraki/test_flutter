@@ -31,22 +31,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('sas4');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login Page'),
       ),
       body: BlocProvider<LoginBloc>(
-        create: (_) => getIt(),
+        create: (_) => getIt<LoginBloc>(),
         child: BlocConsumer<LoginBloc, LoginState>(listener: (context, state) {
-          // TODO ||
-          if (state.user == null) {
+          if (state is LoginSuccessState) {
+            // Можно реализовать переход на другой экран при успехе
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
-              ..showSnackBar(const SnackBar(content: Text('Auth failed')));
+              ..showSnackBar(
+                SnackBar(content: Text('Добро пожаловать, ${state.user.nickname}!')),
+              );
           }
         }, builder: (context, state) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Login Page'),
               TextInput(controller: _emailController, labelText: 'Email'),
@@ -55,19 +57,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 indent: 20,
                 endIndent: 20,
               ),
-              TextButton(
+              ElevatedButton(
                 onPressed: () {
-                  final email = _emailController.text;
-                  final password = _passwordController.text;
-                  print(state.user?.toString());
-                  context.read<LoginBloc>().add(LoginSubmittedEvent(email, password));
+                  final _email = _emailController.text;
+                  final _password = _passwordController.text;
+                  final _event = LoginSubmitEvent(email: _email, password: _password);
+
+                  context.read<LoginBloc>().add(_event);
                 },
                 child: const Text('LOGIN'),
               ),
-              if (state.user != null) ...[
+              if (state is LoginLoadingState) const CircularProgressIndicator(),
+              if (state is LoginErrorState)
+                Text(
+                  state.message,
+                  style: TextStyle(color: Colors.red),
+                ),
+              if (state is LoginSuccessState) ...[
                 const Divider(),
-                Text('User ID: ${state.user?.id ?? 'Unknown'}'),
-                Text('User Name: ${state.user?.nickname ?? 'Unknown'}'),
+                Text('User ID: ${state.user.id}'),
+                Text('User Name: ${state.user.nickname}'),
               ],
             ]
                 .expand((e) => [
